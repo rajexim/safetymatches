@@ -1,10 +1,7 @@
-# Cloudflare Pages (Workers static assets backend).
-# SPA fallback lives here — not in public/_redirects — because
-# `/* /index.html 200` is rejected as an infinite loop (error 100324).
+# Cloudflare Pages. Do not add [assets] here — Pages rejects that
+# section (`wrangler pages deploy`). SPA catch-all belongs in
+# public/_redirects as exact paths only; `/* /index.html 200` loops
+# (error 100324).
 name = "safetymatches"
 compatibility_date = "2026-08-19"
 pages_build_output_dir = "./dist"
-
-[assets]
-html_handling = "auto-trailing-slash"
-not_found_handling = "single-page-application"

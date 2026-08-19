@@ -7,9 +7,8 @@
 # ("Infinite loop detected in this rule").
 #
 # Prerendered dist/<route>/index.html files are served first via HTML handling
-# (same precedence as nginx try_files $uri $uri/index.html). wrangler.toml
-# sets not_found_handling = "single-page-application" for unknown paths.
-# Exact rewrites below keep /admin working even without that config.
+# (same precedence as nginx try_files $uri $uri/index.html). Exact rewrites
+# below keep /admin working; Pages does not support [assets] in wrangler.toml.
 
 /admin    /index.html   200
 /admin/   /index.html   200
