@@ -2,6 +2,9 @@
 # section (`wrangler pages deploy`). SPA catch-all belongs in
 # public/_redirects as exact paths only; `/* /index.html 200` loops
 # (error 100324).
-name = "safetymatches"
+# wrangler.toml
+name = 'safetymatcheswebsite'
 compatibility_date = "2026-08-19"
 pages_build_output_dir = "./dist"
+
+
