@@ -1,0 +1,476 @@
+{
+  "version": 1,
+  "updatedAt": "2026-08-08T08:23:50.757Z",
+  "site": {
+    "phoneDisplay": "+91 99525 38046",
+    "phoneTel": "+919952538046",
+    "email": "sales@glovel.in",
+    "brandTagline": "Factory Direct Export",
+    "trustBadge": "Factory Direct Export",
+    "heroCta": "Request Factory Quotation",
+    "factoryBadge": "Direct Export"
+  },
+  "banners": [
+    {
+      "id": "banner-1",
+      "image": "/assets/images/hero/banner 1.webp",
+      "tag": "Sivakasi Factory Direct Export",
+      "title": "India's Premier Manufacturer & Exporter of Safety Matches",
+      "subtitle": "High ignition quality wooden poplar matches manufactured in Sivakasi for daily household use and bulk container shipping.",
+      "alt": "Chispita 240-stick safety matchbox manufactured by Glovel Matches LLP, opened to show red-headed wooden splints"
+    },
+    {
+      "id": "banner-2",
+      "image": "/assets/images/hero/banner 2.webp",
+      "tag": "100% Damp Proof Moisture Resistant",
+      "title": "Paraffin Impregnated Moisture-Proof Wax Matches",
+      "subtitle": "Engineered specifically for coastal regions, rainy tropical environments, and humid climates across Africa and Latin America.",
+      "alt": "Cerillito El Milagro moisture-proof wax matchbox by Glovel Matches LLP, opened to show paraffin splints with red heads"
+    },
+    {
+      "id": "banner-3",
+      "image": "/assets/images/hero/banner 3.webp",
+      "tag": "Custom OEM Branding and Hotel Line",
+      "title": "Custom Printed Promotional and Hotel Matchboxes",
+      "subtitle": "Bespoke hotel matchbooks with gold foil stamping, embossed logos, custom hex head colors, and black dyed splints.",
+      "alt": "Custom printed Vila Hotel promotional matchbox and matching information card manufactured by Glovel Matches LLP"
+    },
+    {
+      "id": "banner-4",
+      "image": "/assets/images/hero/banner 4.webp",
+      "tag": "Heavy Duty Extra Long Line",
+      "title": "Extra Long Kitchen and Barbeque Safety Matches",
+      "subtitle": "110mm to 280mm extra long wooden splints engineered for gas stoves, candles, outdoor grills, and log fireplaces.",
+      "alt": "Fireplace Matches box by Glovel Matches LLP with a bundle of extra long red-headed wooden splints resting on top"
+    }
+  ],
+  "products": [
+    {
+      "id": "household",
+      "category": "Household Matches",
+      "title": "Wooden Household Safety Matches (5S / 5E / 5H)",
+      "specs": "Box Size: 51x36x12 mm to 51x36x15 mm | Stick Count: 35s to 45s | Splint: 40mm Poplar Wood",
+      "desc": "High ignition, damp-resistant wooden matches designed for daily domestic use and supermarket supply.",
+      "features": [
+        "Instant single-stroke ignition",
+        "Zero afterglow splints",
+        "Side friction striker",
+        "10s shrink-wrap bundles"
+      ],
+      "image": "/assets/images/products/household/household-match-01.png",
+      "showcaseImage": "/assets/images/products/household/household-match-01.png",
+      "heroImage": "/assets/images/products/household/household-match-01.png",
+      "gallery": [
+        {
+          "src": "/assets/images/products/household/household-match-01.png",
+          "alt": "Red and black printed household safety matchbox open to show 40mm poplar splints with red match heads",
+          "label": "Red & black label, red heads"
+        },
+        {
+          "src": "/assets/images/products/household/household-match-02.png",
+          "alt": "VOLCAN 40-unit household safety matchbox in blue, opened to reveal poplar splints with green match heads",
+          "label": "VOLCAN, green heads"
+        },
+        {
+          "src": "/assets/images/products/household/household-match-03.png",
+          "alt": "FESCO scissors-brand household safety matchbox standing open, filled with wooden splints with brown match heads",
+          "label": "FESCO scissors label"
+        },
+        {
+          "src": "/assets/images/products/household/household-match-04.png",
+          "alt": "Dima Allumettes household safety matchbox marked Made in India, filled with brown-headed wooden splints",
+          "label": "Dima Allumettes"
+        },
+        {
+          "src": "/assets/images/products/household/household-match-05.png",
+          "alt": "ZEUS Fosforos de Seguridad 40-stick household matchbox with red-headed poplar splints",
+          "label": "ZEUS, 40 sticks"
+        },
+        {
+          "src": "/assets/images/products/household/household-match-06.png",
+          "alt": "CHISPITA household safety matchbox in red, holding 45 wooden splints with red match heads",
+          "label": "CHISPITA, 45 sticks"
+        },
+        {
+          "src": "/assets/images/products/household/household-match-07.png",
+          "alt": "Plain blue private-label household matchbox with a minimal two-square motif and white-headed splints",
+          "label": "Plain blue private label"
+        },
+        {
+          "src": "/assets/images/products/household/household-match-08.png",
+          "alt": "Red and black household safety matchbox lying open, showing the side friction striker and red-headed poplar splints",
+          "label": "Red & black, side striker"
+        },
+        {
+          "src": "/assets/images/products/household/household-match-09.png",
+          "alt": "Blue checkerboard household safety matchbox opened to show wooden splints with white match heads",
+          "label": "Blue checkerboard"
+        },
+        {
+          "src": "/assets/images/products/household/household-match-10.png",
+          "alt": "LATIGO household safety matchbox with red horse artwork on blue board, holding 40 blue-headed splints",
+          "label": "LATIGO, blue heads"
+        },
+        {
+          "src": "/assets/images/products/household/household-match-11.png",
+          "alt": "Rimi retail-brand household safety matchbox in red with a red honeycomb side striker and red-headed splints",
+          "label": "Rimi retail brand"
+        },
+        {
+          "src": "/assets/images/products/household/household-match-12.png",
+          "alt": "VOLCAN 40-unit household safety matchbox in pale blue, opened to show red-headed poplar splints",
+          "label": "VOLCAN, red heads"
+        },
+        {
+          "src": "/assets/images/products/household/household-match-13.png",
+          "alt": "VICUNA 40-stick household safety matchbox with yellow label and red-headed wooden splints",
+          "label": "VICUNA, yellow label"
+        },
+        {
+          "src": "/assets/images/products/household/household-match-14.png",
+          "alt": "DEPO retail-brand household safety matchbox in red and green, filled with red-headed poplar splints",
+          "label": "DEPO retail brand"
+        },
+        {
+          "src": "/assets/images/products/household/household-match-15.png",
+          "alt": "Household safety matchbox with yellow forest illustration, holding wooden splints with brown match heads",
+          "label": "Forest illustration label"
+        },
+        {
+          "src": "/assets/images/products/household/household-match-16.png",
+          "alt": "Ukrainian-language SIRNYKY household safety matchbox in red, opened to show red-headed poplar splints",
+          "label": "Ukrainian SIRNYKY label"
+        },
+        {
+          "src": "/assets/images/products/household/household-match-17.png",
+          "alt": "Selver supermarket-brand household safety matchbox in red, standing open with red-headed splints",
+          "label": "Selver supermarket brand"
+        },
+        {
+          "src": "/assets/images/products/household/household-match-18.png",
+          "alt": "Elvi supermarket-brand household safety matchbox in green, standing open with green-headed splints",
+          "label": "Elvi supermarket brand"
+        },
+        {
+          "src": "/assets/images/products/household/household-match-19.png",
+          "alt": "Candela 40-stick household safety matchbox with bonfire artwork and red-headed wooden splints",
+          "label": "Candela, bonfire artwork"
+        },
+        {
+          "src": "/assets/images/products/household/household-match-20.png",
+          "alt": "Teal checkerboard household safety matchbox standing open with white-headed wooden splints",
+          "label": "Teal checkerboard"
+        },
+        {
+          "src": "/assets/images/products/household/household-match-21.png",
+          "alt": "Closed red private-label household safety matchbox printed with a retail logo and slogan",
+          "label": "Red private-label box"
+        },
+        {
+          "src": "",
+          "alt": "New image"
+        },
+        {
+          "src": "",
+          "alt": "New image"
+        },
+        {
+          "src": "",
+          "alt": "New image"
+        }
+      ]
+    },
+    {
+      "id": "wax",
+      "category": "Wax Matches",
+      "title": "Moisture-Proof Paraffin Wax Matches",
+      "specs": "Box Size: 49x35x12 mm to 51x36x14 mm | Stick Count: 35s to 45s | Splint: Paraffin Treated Kraft Paper",
+      "desc": "Engineered for high humidity, coastal, and rainy tropical climates across Africa & Latin America.",
+      "features": [
+        "100% water/damp barrier",
+        "Flexible paper splints",
+        "Non-splintering burn",
+        "Compact pocket packs"
+      ],
+      "image": "/assets/images/products/wax/wax-match-01.png",
+      "showcaseImage": "/assets/images/products/wax/wax-match-01.png",
+      "heroImage": "/assets/images/products/wax/wax-match-01.png",
+      "gallery": [
+        {
+          "src": "/assets/images/products/wax/wax-match-01.png",
+          "alt": "Cerillito El Milagro 50-stick wax safety matchbox, reverse side showing folk-art label, barcode and safety notices",
+          "label": "Cerillito El Milagro, reverse"
+        },
+        {
+          "src": "/assets/images/products/wax/wax-match-02.png",
+          "alt": "Cerillito El Milagro wax safety matchbox standing open, filled with white paraffin kraft splints with red heads",
+          "label": "Cerillito El Milagro, open"
+        },
+        {
+          "src": "/assets/images/products/wax/wax-match-03.png",
+          "alt": "British American Tobacco Tanzania branded wax matchbox in navy, holding dark paraffin splints with red heads",
+          "label": "BAT Tanzania private label"
+        },
+        {
+          "src": "/assets/images/products/wax/wax-match-04.png",
+          "alt": "San Jorge 50-stick wax safety matchbox opened to show white paraffin kraft splints with black match heads",
+          "label": "San Jorge, black heads"
+        },
+        {
+          "src": "/assets/images/products/wax/wax-match-05.png",
+          "alt": "San Jorge Extra Largos wax safety matchboxes displayed with their printed retail caddy pack",
+          "label": "San Jorge caddy pack"
+        },
+        {
+          "src": "/assets/images/products/wax/wax-match-06.png",
+          "alt": "Africa Moto trilingual wax matchbox labelled in French, English and Swahili, with black-headed paraffin splints",
+          "label": "Africa Moto, trilingual"
+        },
+        {
+          "src": "/assets/images/products/wax/wax-match-07.png",
+          "alt": "Crown Crane wax safety matchbox with yellow bird artwork, filled with black-headed paraffin kraft splints",
+          "label": "Crown Crane label"
+        },
+        {
+          "src": "/assets/images/products/wax/wax-match-08.png",
+          "alt": "Zebra wax safety matchbox with yellow label, opened to show white paraffin splints with black match heads",
+          "label": "Zebra, black heads"
+        },
+        {
+          "src": "/assets/images/products/wax/wax-match-09.png",
+          "alt": "Cerillito El Milagro wax safety matchbox shown closed, front cover folk-art artwork",
+          "label": "Cerillito El Milagro, closed"
+        },
+        {
+          "src": "/assets/images/products/wax/wax-match-10.png",
+          "alt": "Three Cerillito El Milagro wax matchboxes opened side by side, each filled with red-headed paraffin splints",
+          "label": "Cerillito El Milagro, three-up"
+        }
+      ]
+    },
+    {
+      "id": "promotional",
+      "category": "Promotional Matches",
+      "title": "Custom Brand & Hotel Book Matches",
+      "specs": "Splint Count: 10s, 20s, 30s | Cover: 300 GSM Art Board | Printing: Full Offset + Foil Stamping",
+      "desc": "Bespoke promotional matchbooks created for luxury hotels, cigar lounges, restaurants, and corporate events.",
+      "features": [
+        "Metallic gold/silver foil",
+        "Black/colored matchsticks",
+        "Custom head colors",
+        "Die-cut templates"
+      ],
+      "image": "/assets/images/products/promotional/PromotionalMatchProduct3.png",
+      "showcaseImage": "/assets/images/products/promotional/PromotionalMatchProduct3.png",
+      "heroImage": "/assets/images/products/promotional/PromotionalMatchProduct3.png",
+      "gallery": [
+        {
+          "src": "/assets/images/products/promotional/promotional-match-01.png",
+          "alt": "Purple promotional matchbox with a scallop shell motif, standing open with purple-headed splints",
+          "label": "Scallop shell, purple"
+        },
+        {
+          "src": "/assets/images/products/promotional/promotional-match-02.png",
+          "alt": "Vila Hotel promotional matchbox printed with the hotel logo, address and social handles, holding red-headed splints",
+          "label": "Vila Hotel"
+        },
+        {
+          "src": "/assets/images/products/promotional/promotional-match-03.png",
+          "alt": "Bucherer Fine Jewellery navy promotional matchbox with long white-headed splints",
+          "label": "Bucherer, navy"
+        },
+        {
+          "src": "/assets/images/products/promotional/promotional-match-04.png",
+          "alt": "Park Hyatt Sydney promotional matchbox in brown with gold foil lettering and white-headed splints",
+          "label": "Park Hyatt Sydney"
+        },
+        {
+          "src": "/assets/images/products/promotional/promotional-match-05.png",
+          "alt": "Emerald Hotels and Resorts white promotional matchbox standing open with green-headed splints",
+          "label": "Emerald Hotels & Resorts"
+        },
+        {
+          "src": "/assets/images/products/promotional/promotional-match-06.png",
+          "alt": "Hotels by Design promotional matchbox in white listing Goa, Dubai, Bali and Germany, with white-headed splints",
+          "label": "Hotels by Design"
+        },
+        {
+          "src": "/assets/images/products/promotional/promotional-match-07.png",
+          "alt": "The Pub yellow promotional matchbox with a brown striker stripe and yellow-headed splints",
+          "label": "The Pub"
+        },
+        {
+          "src": "/assets/images/products/promotional/promotional-match-08.png",
+          "alt": "Reethi Faru Resort Maldives promotional matchbox with blue line-drawn crest and blue-headed splints",
+          "label": "Reethi Faru Resort crest"
+        },
+        {
+          "src": "/assets/images/products/promotional/promotional-match-09.png",
+          "alt": "Legends of Fire premium promotional matchbox in gold foil with an ornate oval label, shown closed",
+          "label": "Legends of Fire, gold foil"
+        },
+        {
+          "src": "/assets/images/products/promotional/promotional-match-10.png",
+          "alt": "Amangiri promotional matchbox in sage green with gold foil lettering and brown-headed splints",
+          "label": "Amangiri"
+        },
+        {
+          "src": "/assets/images/products/promotional/promotional-match-11.png",
+          "alt": "Reethi Faru Resort cream promotional matchbox with sunrise logo and white-headed splints",
+          "label": "Reethi Faru Resort"
+        },
+        {
+          "src": "/assets/images/products/promotional/promotional-match-12.png",
+          "alt": "Paradise Island Resort Maldives maroon promotional matchboxes, one open with pink-headed splints",
+          "label": "Paradise Island Resort"
+        },
+        {
+          "src": "/assets/images/products/promotional/promotional-match-13.png",
+          "alt": "Bucherer Fine Jewellery purple promotional matchbox with silver lettering and purple-headed splints",
+          "label": "Bucherer, purple"
+        },
+        {
+          "src": "/assets/images/products/promotional/promotional-match-14.png",
+          "alt": "Conrad Maldives Rangali Island navy promotional matchbox with gold foil lettering and blue-headed splints",
+          "label": "Conrad Maldives"
+        }
+      ]
+    },
+    {
+      "id": "kitchen",
+      "category": "Kitchen Matches",
+      "title": "Extra Long Kitchen Safety Matches (KB Series)",
+      "specs": "Box Size: 112x62x20 mm to 120x65x25 mm | Stick Count: 100s to 250s | Splint: 47mm to 53mm Wood",
+      "desc": "Longer wooden splints designed to protect hands while lighting gas stoves, ovens, and tall candles.",
+      "features": [
+        "Extra long safe distance",
+        "Sturdy thick splints",
+        "Bulk kitchen value box",
+        "High friction side strip"
+      ],
+      "image": "/assets/images/products/kitchen/kitchen matches 5-msk3x4r1.png",
+      "showcaseImage": "/assets/images/products/kitchen/kitchen matches 5-msk3x4r1.png",
+      "heroImage": "/assets/images/products/kitchen/kitchen-match-01.png",
+      "gallery": [
+        {
+          "src": "/assets/images/products/kitchen/kitchen-match-01.png",
+          "alt": "Energy long kitchen safety matchbox with blue elephant artwork, filled with red-headed wooden splints",
+          "label": "Energy, elephant artwork"
+        },
+        {
+          "src": "/assets/images/products/kitchen/kitchen-match-02.png",
+          "alt": "San Antonio 100-stick kitchen safety matchbox in navy and green, holding long splints with brown heads",
+          "label": "San Antonio, 100 sticks"
+        },
+        {
+          "src": "/assets/images/products/kitchen/kitchen-match-03.png",
+          "alt": "Horse Safety Matches kitchen matchbox in red, standing open with long red-headed wooden splints",
+          "label": "Horse Safety Matches"
+        },
+        {
+          "src": "/assets/images/products/kitchen/kitchen-match-04.png",
+          "alt": "San Antonio chlorate-free kitchen safety matchbox filled with long brown-headed wooden splints",
+          "label": "San Antonio, chlorate free"
+        },
+        {
+          "src": "/assets/images/products/kitchen/kitchen-match-05.png",
+          "alt": "Kirana 220 Deluxe kitchen safety matchbox in red, filled with long red-headed wooden splints",
+          "label": "Kirana 220 Deluxe"
+        },
+        {
+          "src": "/assets/images/products/kitchen/kitchen-match-06.png",
+          "alt": "Urban extra-strong kitchen safety matchbox in yellow, packed with red-headed 47mm splints",
+          "label": "Urban extra strong"
+        },
+        {
+          "src": "/assets/images/products/kitchen/kitchen-match-07.png",
+          "alt": "Residence Fosforos Largos 240-unit kitchen matchbox, opened to show long green-headed splints",
+          "label": "Residence, 240 units"
+        },
+        {
+          "src": "/assets/images/products/kitchen/kitchen-match-08.png",
+          "alt": "Urban super larga kitchen safety matchbox in yellow and red with long red-headed wooden splints",
+          "label": "Urban super larga"
+        },
+        {
+          "src": "/assets/images/products/kitchen/kitchen-match-09.png",
+          "alt": "Residence Ecologico long kitchen safety matchbox in ochre, filled with green-headed wooden splints",
+          "label": "Residence Ecologico"
+        },
+        {
+          "src": "/assets/images/products/kitchen/kitchen-match-10.png",
+          "alt": "Vicuna kitchen safety matchbox in yellow with a full-length side striker and red-headed long splints",
+          "label": "Vicuna, full-length striker"
+        },
+        {
+          "src": "/assets/images/products/kitchen/kitchen-match-11.png",
+          "alt": "Chispita 240-unit kitchen matchbox marked mas largos y gruesos, filled with red-headed long splints",
+          "label": "Chispita, 240 units"
+        },
+        {
+          "src": "/assets/images/products/kitchen/kitchen-match-12.png",
+          "alt": "El Pipila 200-stick kitchen safety matchbox with green-headed long wooden splints",
+          "label": "El Pipila, 200 sticks"
+        },
+        {
+          "src": "/assets/images/products/kitchen/kitchen-match-13.png",
+          "alt": "El Pipila 240-stick kitchen safety matchbox made in Mexico, with green-headed long splints",
+          "label": "El Pipila, 240 sticks"
+        },
+        {
+          "src": "/assets/images/products/kitchen/kitchen-match-14.png",
+          "alt": "Chispita kitchen safety matchbox standing open, packed with long red-headed wooden splints",
+          "label": "Chispita, standing open"
+        }
+      ]
+    },
+    {
+      "id": "barbeque",
+      "category": "Barbeque Matches",
+      "title": "Heavy Duty Barbeque & Fireplace Matches (BBQ Series)",
+      "specs": "Box Size: 290x60x20 mm | Stick Count: 40s to 60s | Splint: 280mm Softwood",
+      "desc": "Ultra-long 28cm matchsticks ideal for outdoor grills, camping campfires, and deep fireplaces.",
+      "features": [
+        "28cm extra long safety splint",
+        "Heavy flame burn time",
+        "Resistant to wind drafts",
+        "Premium slide box"
+      ],
+      "image": "/assets/images/products/barbeque/barbeque-match-01.png",
+      "showcaseImage": "/assets/images/products/barbeque/barbeque-match-01.png",
+      "heroImage": "/assets/images/products/barbeque/barbeque-match-01.png",
+      "gallery": [
+        {
+          "src": "/assets/images/products/barbeque/barbeque-match-01.png",
+          "alt": "Energy Clasicos 40-stick barbeque matchbox with blue elephant artwork and long red-headed splints",
+          "label": "Energy Clasicos, 40 sticks"
+        },
+        {
+          "src": "/assets/images/products/barbeque/barbeque-match-02.png",
+          "alt": "Fireplace Matches box for indoor and outdoor use, with a bundle of long red-headed splints resting on top",
+          "label": "Fireplace Matches bundle"
+        },
+        {
+          "src": "/assets/images/products/barbeque/barbeque-match-03.png",
+          "alt": "Urban large XXL 100 mm barbeque safety matchbox in yellow, filled with red-headed splints",
+          "label": "Urban XXL 100 mm"
+        },
+        {
+          "src": "/assets/images/products/barbeque/barbeque-match-04.png",
+          "alt": "Urban longa 225 mm barbeque matchbox holding 50 splints, with one 225mm red-headed splint shown alongside",
+          "label": "Urban longa 225 mm"
+        },
+        {
+          "src": "/assets/images/products/barbeque/barbeque-match-05.png",
+          "alt": "Energy long barbeque matchbox with blue elephant artwork, opened to show red-headed wooden splints",
+          "label": "Energy, long box"
+        },
+        {
+          "src": "/assets/images/products/barbeque/barbeque-match-06.png",
+          "alt": "Alem do Horizonte scouting matchbox with campfire photography and long blue-headed splints",
+          "label": "Alem do Horizonte"
+        }
+      ]
+    }
+  ]
+}

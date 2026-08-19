@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Household Safety Matches 5E (42mm Poplar Splint)",
+  "brand": {
+    "@type": "Brand",
+    "name": "Glovel Matches LLP"
+  },
+  "manufacturer": "Glovel Matches LLP (Sivakasi, Tamil Nadu)",
+  "material": "Poplar wood splint, white duplex board, non-toxic head",
+  "countryOfOrigin": "India",
+  "offers": {
+    "@type": "AggregateOffer",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock",
+    "eligibleQuantity": "1 x 20FT FCL minimum order"
+  }
+}

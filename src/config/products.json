@@ -1,0 +1,77 @@
+[
+  {
+    "id": "household",
+    "category": "Household Matches",
+    "title": "Wooden Household Safety Matches (5S / 5E / 5H)",
+    "specs": "Box Size: 51x36x12 mm to 51x36x15 mm | Stick Count: 35s to 45s | Splint: 40mm Poplar Wood",
+    "desc": "High ignition, damp-resistant wooden matches designed for daily domestic use and supermarket supply.",
+    "features": [
+      "Instant single-stroke ignition",
+      "Zero afterglow splints",
+      "Side friction striker",
+      "10s shrink-wrap bundles"
+    ],
+    "image": "/assets/images/products/household/household-match-01.png",
+    "showcaseImage": "/assets/images/products/household/household-match-01.png"
+  },
+  {
+    "id": "wax",
+    "category": "Wax Matches",
+    "title": "Moisture-Proof Paraffin Wax Matches",
+    "specs": "Box Size: 49x35x12 mm to 51x36x14 mm | Stick Count: 35s to 45s | Splint: Paraffin Treated Kraft Paper",
+    "desc": "Engineered for high humidity, coastal, and rainy tropical climates across Africa & Latin America.",
+    "features": [
+      "100% water/damp barrier",
+      "Flexible paper splints",
+      "Non-splintering burn",
+      "Compact pocket packs"
+    ],
+    "image": "/assets/images/products/wax/wax-match-01.png",
+    "showcaseImage": "/assets/images/products/wax/wax-match-01.png"
+  },
+  {
+    "id": "promotional",
+    "category": "Promotional Matches",
+    "title": "Custom Brand & Hotel Book Matches",
+    "specs": "Splint Count: 10s, 20s, 30s | Cover: 300 GSM Art Board | Printing: Full Offset + Foil Stamping",
+    "desc": "Bespoke promotional matchbooks created for luxury hotels, cigar lounges, restaurants, and corporate events.",
+    "features": [
+      "Metallic gold/silver foil",
+      "Black/colored matchsticks",
+      "Custom head colors",
+      "Die-cut templates"
+    ],
+    "image": "/assets/images/products/promotional/PromotionalMatchProduct3.png",
+    "showcaseImage": "/assets/images/products/promotional/PromotionalMatchProduct3.png"
+  },
+  {
+    "id": "kitchen",
+    "category": "Kitchen Matches",
+    "title": "Extra Long Kitchen Safety Matches (KB Series)",
+    "specs": "Box Size: 112x62x20 mm to 120x65x25 mm | Stick Count: 100s to 250s | Splint: 47mm to 53mm Wood",
+    "desc": "Longer wooden splints designed to protect hands while lighting gas stoves, ovens, and tall candles.",
+    "features": [
+      "Extra long safe distance",
+      "Sturdy thick splints",
+      "Bulk kitchen value box",
+      "High friction side strip"
+    ],
+    "image": "/assets/images/products/kitchen/kitchen-match-01.png",
+    "showcaseImage": "/assets/images/products/kitchen/kitchen-match-01.png"
+  },
+  {
+    "id": "barbeque",
+    "category": "Barbeque Matches",
+    "title": "Heavy Duty Barbeque & Fireplace Matches (BBQ Series)",
+    "specs": "Box Size: 290x60x20 mm | Stick Count: 40s to 60s | Splint: 280mm Softwood",
+    "desc": "Ultra-long 28cm matchsticks ideal for outdoor grills, camping campfires, and deep fireplaces.",
+    "features": [
+      "28cm extra long safety splint",
+      "Heavy flame burn time",
+      "Resistant to wind drafts",
+      "Premium slide box"
+    ],
+    "image": "/assets/images/products/barbeque/barbeque-match-01.png",
+    "showcaseImage": "/assets/images/products/barbeque/barbeque-match-01.png"
+  }
+]

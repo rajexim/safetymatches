@@ -1,0 +1,96 @@
+{
+  "testimonials": [
+    {
+      "country": "Albania Supermarket Buyer",
+      "region": "Europe Market",
+      "product": "Kitchen & Barbeque Matches",
+      "quote": "Thank you very much for your nice collaboration. Everything in our container shipment was okay."
+    },
+    {
+      "country": "Chile Bulk Importer",
+      "region": "South America",
+      "product": "Household & Kitchen Matches",
+      "quote": "Nice to know your company. I hope with our business going to the long term."
+    },
+    {
+      "country": "Panama Commercial Buyer",
+      "region": "Central America",
+      "product": "Custom Wooden Matches",
+      "quote": "This supplier portfolio looks very complete with high-quality products. We look forward to reactivating our commercial relationship."
+    },
+    {
+      "country": "El Salvador Importer",
+      "region": "Latin America",
+      "product": "Damp-Proof Safety Matches",
+      "quote": "Have known and worked with Mr. Rajan & Glovel Matches LLP. Really good quality and excellent service."
+    },
+    {
+      "country": "Republic of Guinea Buyer",
+      "region": "West Africa Market",
+      "product": "Wax Matches (Coastal Damp Proof)",
+      "quote": "I am really very satisfied to get you as a partner. Hope we will do more business in the future."
+    },
+    {
+      "country": "Colombia Retail Chain",
+      "region": "South America",
+      "product": "Household Safety Matches",
+      "quote": "Fast and assertive communication and response. Very clear information and container schedules."
+    },
+    {
+      "country": "Peru Wholesale Distributor",
+      "region": "Latin America",
+      "product": "Wax Matches & Pocket Safety Lines",
+      "quote": "I am glad to be working with Glovel for over 5 years. The quality of matches is very good, especially for the high humidity areas."
+    },
+    {
+      "country": "Kenya & East Africa Buyer",
+      "region": "East Africa Market",
+      "product": "Safety Matches FCL Container",
+      "quote": "Your hospitality is beyond explanation. Excellent support and reliable container dispatch."
+    },
+    {
+      "country": "Mozambique Importer",
+      "region": "Southern Africa Market",
+      "product": "Household Wooden Safety Matches",
+      "quote": "I thanks to Glovel Group. They gave good support and reliable matchbox packaging."
+    },
+    {
+      "country": "Australia Retail Buyer",
+      "region": "Asia Pacific",
+      "product": "Barbeque & Fireplace Matches",
+      "quote": "Excellent matchbox finish, strong wooden splints, and reliable single-stroke ignition."
+    },
+    {
+      "country": "Bahrain Supply Agency",
+      "region": "Middle East",
+      "product": "Promotional & Hotel Matches",
+      "quote": "Reliable export packing and prompt container delivery schedules from Tuticorin VOC Port."
+    }
+  ],
+  "buyers": [
+    { "name": "Client From Colombia", "location": "Colombia", "image": "/assets/images/buyers/Client-Colombia.jpg" },
+    { "name": "Client From Chile", "location": "Chile", "image": "/assets/images/buyers/Client-Chile.jpg" },
+    { "name": "Client From Argentina", "location": "Argentina", "image": "/assets/images/buyers/Client-Argentina.jpg" },
+    { "name": "Client From Australia", "location": "Australia", "image": "/assets/images/buyers/Client-Australia.jpg" },
+    { "name": "Client From Canada", "location": "Canada", "image": "/assets/images/buyers/Client-Canada.jpg" },
+    { "name": "Client From Kuwait", "location": "Kuwait", "image": "/assets/images/buyers/Client-Kuwait.jpg" },
+    { "name": "Client From Mexico", "location": "Mexico", "image": "/assets/images/buyers/Client-Mexico-1.jpg" },
+    { "name": "Client From Oman", "location": "Oman", "image": "/assets/images/buyers/Client-Oman-1.jpg" },
+    { "name": "Client From Poland", "location": "Poland", "image": "/assets/images/buyers/Client-Poland.jpg" },
+    { "name": "Client From Panama", "location": "Panama", "image": "/assets/images/buyers/Client-Panama.jpg" },
+    { "name": "Client From Peru", "location": "Peru", "image": "/assets/images/buyers/Client-Peru.jpg" },
+    { "name": "Client From Saudi Arabia", "location": "Saudi Arabia", "image": "/assets/images/buyers/Client-saudi.jpg" },
+    { "name": "Client From Seychelles", "location": "Seychelles", "image": "/assets/images/buyers/Client-Seychelles.jpg" },
+    { "name": "Client From Switzerland", "location": "Switzerland", "image": "/assets/images/buyers/Client-Switzerland.jpg" },
+    { "name": "Client From United Kingdom", "location": "United Kingdom", "image": "/assets/images/buyers/Client-UK.jpg" },
+    { "name": "Client From Yemen", "location": "Yemen", "image": "/assets/images/buyers/Client-Yemen.jpg" },
+    { "name": "Client From Slovakia", "location": "Slovakia", "image": "/assets/images/buyers/Client-from-Slovakia.jpg" },
+    { "name": "Client From Turkey", "location": "Turkey", "image": "/assets/images/buyers/Client-From-Turkey.jpg" },
+    { "name": "Client From El Salvador", "location": "El Salvador", "image": "/assets/images/buyers/Client-Elsalvador.jpg" },
+    { "name": "Client From Sri Lanka", "location": "Sri Lanka", "image": "/assets/images/buyers/Client-Srilanka1.jpg" },
+    { "name": "Client From Ukraine", "location": "Ukraine", "image": "/assets/images/buyers/client-ukraine.jpg" },
+    { "name": "Client From Réunion", "location": "Réunion Island", "image": "/assets/images/buyers/Client-Reunion.jpg" },
+    { "name": "Client From Guatemala", "location": "Guatemala", "image": "/assets/images/buyers/Client-Guatemala1.jpg" },
+    { "name": "Client From Algeria", "location": "Algeria", "image": "/assets/images/buyers/Client-Algeria-1.jpg" }
+  ]
+}

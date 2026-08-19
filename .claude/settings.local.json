@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.safetymatches.in)",
+      "WebFetch(domain:www.glovel.in)",
+      "WebSearch",
+      "WebFetch(domain:glovel.in)",
+      "Bash(grep -v \"^/var/www/html/glovel$\")",
+      "Bash(echo \"\\(exit $?\\)\")",
+      "Bash(npm run *)",
+      "Bash(grep -o '<div id=\"root\">.\\\\{0,200\\\\}' /var/www/html/glovel/dist/about-us/index.html)"
+    ]
+  }
+}

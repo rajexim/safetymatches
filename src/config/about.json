@@ -1,0 +1,81 @@
+{
+  "mdProfile": {
+    "name": "Mr. K.T. Rajan",
+    "role": "Managing Director",
+    "company": "Glovel Matches LLP",
+    "image": "/assets/images/team/Mr.-K.T.-Rajan-image.png",
+    "quote": "Our mission is simple: to manufacture the most reliable, damp-proof, and premium-grade safety matches in India while delivering flawless container load logistics to importers in 50+ countries. We source sustainable wood, use strict REACH compliant chemicals, and maintain absolute transparency from Tuticorin port to final dispatch."
+  },
+  "managementTeam": [
+    {
+      "name": "Mr. S. Nagamani",
+      "role": "Business Head",
+      "image": "/assets/images/team/Nagamani.jpg"
+    },
+    {
+      "name": "Mrs. V. Chandra Jothi",
+      "role": "Senior Manager",
+      "image": "/assets/images/team/CHANDRA.jpg"
+    },
+    {
+      "name": "Mr. V. Sundaramanikandan",
+      "role": "Senior Business Development Manager",
+      "image": "/assets/images/team/Sundaramanikandan.jpg"
+    },
+    {
+      "name": "Mrs. B. Kavitha",
+      "role": "Senior Business Development Manager",
+      "image": "/assets/images/team/Kavitha.B.jpg"
+    },
+    {
+      "name": "Mr. M. Sanjay Mithan",
+      "role": "Business Development Manager",
+      "image": "/assets/images/team/Sanjay.jpg"
+    },
+    {
+      "name": "Mr. B. Senthil",
+      "role": "Business Development Manager",
+      "image": "/assets/images/team/B.Senthil.jpg"
+    },
+    {
+      "name": "Mr. K. S. Rajan",
+      "role": "Administrative Manager",
+      "image": "/assets/images/team/K.S-Rajan.jpg"
+    },
+    {
+      "name": "Mr. J. Raja Mohamed",
+      "role": "Logistics Manager",
+      "image": "/assets/images/team/raja-mohamed.jpg"
+    },
+    {
+      "name": "Mrs. R. Mahalakshmi",
+      "role": "Purchase Manager",
+      "image": "/assets/images/team/laxmi.jpg"
+    },
+    {
+      "name": "Mr. D. Gnana Guru",
+      "role": "Business Development Executive",
+      "image": "/assets/images/team/Ganaguru.jpg"
+    },
+    {
+      "name": "Mr. J. Gopinath",
+      "role": "Quality Control Analyst",
+      "image": "/assets/images/team/Gopi.jpg"
+    },
+    {
+      "name": "Mr. S. Narayanan",
+      "role": "E-Commerce Executive",
+      "image": "/assets/images/team/NARAYANAN.jpg"
+    },
+    {
+      "name": "Ms. S. Kavita",
+      "role": "E-Commerce Executive",
+      "image": "/assets/images/team/kavita-s.jpg"
+    },
+    {
+      "name": "Mr. M. Ambrish Ganesh",
+      "role": "E-Commerce Executive",
+      "image": "/assets/images/team/Ambrish.jpg"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "name": "safetymatches-redesign",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "cms": "node server/cms-server.mjs",
+    "dev:all": "npx --yes concurrently -k \"npm run cms\" \"npm run dev\"",
+    "build": "vite build && node scripts/generate-seo.mjs",
+    "preview": "vite preview",
+    "seo": "node scripts/generate-seo.mjs",
+    "seo:alt": "node scripts/apply-image-alt.mjs",
+    "seed:cms": "node scripts/seed-cms-content.mjs",
+    "images": "node scripts/optimize-images.mjs"
+  },
+  "dependencies": {
+    "lucide-react": "^0.475.0",
+    "nodemailer": "^9.0.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.11.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "sharp": "^0.35.3",
+    "tailwindcss": "^4.0.0",
+    "vite": "^6.1.0"
+  }
+}

@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-heading: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+@layer utilities {
+  .flame-gradient-text {
+    @apply bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 bg-clip-text text-transparent;
+  }
+  .flame-gradient-bg {
+    @apply bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-500 text-slate-950 font-bold;
+  }
+  .glass-panel {
+    @apply bg-white/90 backdrop-blur-md border border-slate-200;
+  }
+  .glass-card {
+    @apply bg-white border border-slate-200 shadow-xs hover:shadow-md transition-shadow duration-300;
+  }
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+}
+
+body {
+  @apply bg-slate-50 text-slate-900 font-sans antialiased selection:bg-yellow-400 selection:text-slate-950;
+}

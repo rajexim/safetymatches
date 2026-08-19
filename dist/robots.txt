@@ -1,0 +1,43 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+
+# AI crawlers & answer engines
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Machine-readable AI / LLM site summary
+# https://www.safetymatches.in/llms.txt
+# https://www.safetymatches.in/llms-fr.txt
+# https://www.safetymatches.in/llms-es.txt
+# https://www.safetymatches.in/llms-pt.txt
+# https://www.safetymatches.in/llms-ar.txt
+
+# Product JSON-LD schema payload
+# https://www.safetymatches.in/schema.json
+
+Sitemap: https://www.safetymatches.in/sitemap.xml

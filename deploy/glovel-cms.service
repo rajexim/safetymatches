@@ -1,0 +1,52 @@
+# systemd unit for the /admin content API.
+#
+# Install:
+#   sudo cp deploy/glovel-cms.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now glovel-cms
+#
+# Only needed if you want to edit content through /admin on the live site.
+# A static-only deployment can skip this entirely.
+
+[Unit]
+Description=Glovel Matches CMS API
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/html/glovel
+
+# CHANGE THIS. The default in the code is "glovel-admin" and it is public
+# knowledge — anyone who finds /admin could rewrite your site content.
+Environment=CMS_PASSWORD=replace-with-a-long-random-password
+Environment=CMS_PORT=8787
+Environment=NODE_ENV=production
+
+# Google Workspace SMTP (App Password for ecommerce@rajexim.co.in — not the normal login password)
+Environment=SMTP_HOST=smtp.gmail.com
+Environment=SMTP_PORT=465
+Environment=SMTP_SECURE=true
+Environment=SMTP_USER=ecommerce@rajexim.co.in
+Environment=SMTP_PASS=replace-with-google-app-password-no-spaces
+Environment=MAIL_FROM=ecommerce@rajexim.co.in
+Environment=MAIL_TO=sales@glovel.in,export@glovel.in
+
+ExecStart=/usr/bin/node server/cms-server.mjs
+Restart=always
+RestartSec=5
+
+# The service only ever needs to write to these three directories.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ReadWritePaths=/var/www/html/glovel/content /var/www/html/glovel/public/content /var/www/html/glovel/public/assets/images
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=glovel-cms
+
+[Install]
+WantedBy=multi-user.target
