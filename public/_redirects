@@ -1,0 +1,15 @@
+# Cloudflare Pages / Workers static assets.
+#
+# Do NOT add a Netlify-style SPA catch-all:
+#   /*    /index.html   200
+# Cloudflare's default HTML handling strips `.html` and `/index` from the
+# destination, which then matches `/*` again. Deploy fails with error 100324
+# ("Infinite loop detected in this rule").
+#
+# Prerendered dist/<route>/index.html files are served first via HTML handling
+# (same precedence as nginx try_files $uri $uri/index.html). wrangler.toml
+# sets not_found_handling = "single-page-application" for unknown paths.
+# Exact rewrites below keep /admin working even without that config.
+
+/admin    /index.html   200
+/admin/   /index.html   200
