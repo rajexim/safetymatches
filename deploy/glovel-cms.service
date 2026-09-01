@@ -24,15 +24,6 @@ Environment=CMS_PASSWORD=replace-with-a-long-random-password
 Environment=CMS_PORT=8787
 Environment=NODE_ENV=production
 
-# Google Workspace SMTP (App Password for ecommerce@rajexim.co.in — not the normal login password)
-Environment=SMTP_HOST=smtp.gmail.com
-Environment=SMTP_PORT=465
-Environment=SMTP_SECURE=true
-Environment=SMTP_USER=ecommerce@rajexim.co.in
-Environment=SMTP_PASS=replace-with-google-app-password-no-spaces
-Environment=MAIL_FROM=ecommerce@rajexim.co.in
-Environment=MAIL_TO=sales@glovel.in,export@glovel.in
-
 ExecStart=/usr/bin/node server/cms-server.mjs
 Restart=always
 RestartSec=5

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { X, Send, CheckCircle2, Flame } from 'lucide-react';
+import { submitInquiry } from '../lib/submitInquiry';
 
 const PRODUCT_OPTIONS = [
   'Standard Wooden Matches',
@@ -56,15 +57,7 @@ export default function RfqModal({ isOpen, onClose, selectedProductName }) {
     setSending(true);
     setError('');
     try {
-      const res = await fetch('/api/cms/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'rfq', fields: formData })
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || !data.ok) {
-        throw new Error(data.error || 'Could not send your inquiry.');
-      }
+      await submitInquiry({ type: 'rfq', fields: formData });
       setSubmitted(true);
     } catch (err) {
       setError(err.message || 'Could not send your inquiry.');

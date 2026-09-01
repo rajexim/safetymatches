@@ -197,38 +197,21 @@ npm run build         # bundle the updated manifest
 | Image upload fails with 413 | `client_max_body_size` too low — uploads are base64 and inflate ~33% |
 | `/admin` saves return 401 | `CMS_PASSWORD` in the systemd unit doesn't match what you typed |
 | Images 404 | You ran `npm run images -- --prune` but not `npm run build`, so `dist/` is stale |
-| Contact / RFQ says email not configured | Set `SMTP_PASS` in `glovel-cms.service` to a Google Workspace App Password for `ecommerce@rajexim.co.in`, then `systemctl daemon-reload && systemctl restart glovel-cms` |
-| Contact / RFQ mail not arriving | Confirm App Password for the From mailbox, that `export@glovel.in` exists, and check `journalctl -u glovel-cms -n 50` |
+| Contact / RFQ mail not arriving | Confirm FormSubmit is still activated for `export@glovel.in`, and that `sales@glovel.in` is listed as CC |
 
 ---
 
-## Contact / RFQ email (Google Workspace)
+## Contact / RFQ email (FormSubmit.co)
 
-Contact and RFQ forms POST to `/api/cms/contact`. The CMS service sends mail via Gmail SMTP:
+Contact and RFQ forms POST from the browser to FormSubmit.co using the activated form ID (not a raw inbox address). The CMS service is not involved.
 
 | Setting | Value |
 |---|---|
-| From | `ecommerce@rajexim.co.in` |
-| To | `sales@glovel.in`, `export@glovel.in` |
+| To | `export@glovel.in` (FormSubmit ID `f4a6b8d0f1f10d85b8ce3d1378360fda`) |
+| CC | `sales@glovel.in` |
 | Reply-To | visitor’s email |
 
-**One-time Google setup**
-
-1. For `ecommerce@rajexim.co.in`, enable 2-Step Verification.
-2. Create an App Password (Google Account → Security → App passwords).
-3. Put that 16-character password in the systemd unit as `SMTP_PASS` **with no spaces**
-   (Google shows `xxxx xxxx xxxx xxxx` — enter `xxxxxxxxxxxxxxx`). Values with spaces break
-   systemd `Environment=` lines.
-
-```bash
-sudo nano /etc/systemd/system/glovel-cms.service
-# set SMTP_USER / MAIL_FROM=ecommerce@rajexim.co.in
-# set SMTP_PASS=xxxxxxxxxxxxxxxx   # NO SPACES
-sudo systemctl daemon-reload
-sudo systemctl restart glovel-cms
-curl -s http://127.0.0.1:8787/api/cms/health
-# expect: "mailConfigured": true
-```
+If FormSubmit is re-activated and issues a new ID, update `FORMSUBMIT_ID` in `src/lib/submitInquiry.js`.
 
 **CMS admin password:** whatever is set as `CMS_PASSWORD` in the same unit (not the default
 `glovel-admin` hint unless that is still the value).

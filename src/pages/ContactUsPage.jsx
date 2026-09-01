@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, Clock, Globe, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { useLocale } from '../i18n/LocaleContext';
+import { submitInquiry } from '../lib/submitInquiry';
 
 export default function ContactUsPage({ onOpenRfq }) {
   const { t } = useLocale();
@@ -21,25 +22,17 @@ export default function ContactUsPage({ onOpenRfq }) {
     setSending(true);
     setError('');
     try {
-      const res = await fetch('/api/cms/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          type: 'contact',
-          fields: {
-            name: form.name,
-            email: form.email,
-            phone: form.phone,
-            company: form.company,
-            country: form.country,
-            message: form.message
-          }
-        })
+      await submitInquiry({
+        type: 'contact',
+        fields: {
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          company: form.company,
+          country: form.country,
+          message: form.message
+        }
       });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || !data.ok) {
-        throw new Error(data.error || 'Could not send your inquiry.');
-      }
       setSubmitted(true);
     } catch (err) {
       setError(err.message || 'Could not send your inquiry.');
