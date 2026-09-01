@@ -30,6 +30,13 @@ function scrub(value, max = 500) {
     .slice(0, max);
 }
 
+function scrubMultiline(value, max = 8000) {
+  return String(value || '')
+    .replace(/\r\n/g, '\n')
+    .trim()
+    .slice(0, max);
+}
+
 async function readJson(res) {
   try {
     return await res.json();
@@ -60,10 +67,17 @@ function headerValue(request, name, fallback = '') {
   return request.headers[name.toLowerCase()] || fallback;
 }
 
+function foldExtras(baseMessage, extras) {
+  const lines = extras.filter((line) => line && !baseMessage.includes(line));
+  const extraBlock = lines.join('\n');
+  return [baseMessage, extraBlock].filter(Boolean).join('\n\n') || 'No additional notes provided.';
+}
+
 const DEFAULT_RECIPIENTS = ['export@glovel.in', 'sales@glovel.in'];
 const PRIMARY_INBOX = 'export@glovel.in';
 const DEFAULT_FORMSUBMIT_ID = 'f4a6b8d0f1f10d85b8ce3d1378360fda';
 const SITE_ORIGIN = 'https://www.safetymatches.in';
+const FROM_NAME = 'Safety Matches Web';
 
 export function inquiryRecipients(env = {}) {
   const raw = env.MAIL_TO || DEFAULT_RECIPIENTS.join(', ');
@@ -75,7 +89,11 @@ export function inquiryRecipients(env = {}) {
 
 export function parseInquiryBody(body = {}) {
   const isRfq = String(body.type || '').toLowerCase() === 'rfq';
+  const company = scrub(body.company, 160);
+  const country = scrub(body.country, 160);
   const product = scrub(body.product || body.vehicle, 160);
+  const orderVolume = scrub(body.orderVolume, 160);
+  const customBranding = scrub(body.customBranding, 200);
   const notes = scrub(body.notes, 4000);
   const payload = {
     site: 'safetymatches',
@@ -83,16 +101,15 @@ export function parseInquiryBody(body = {}) {
     name: scrub(body.name, 120),
     email: scrub(body.email, 160),
     phone: scrub(body.phone, 80),
-    company: scrub(body.company, 160),
-    country: scrub(body.country, 160),
     product,
-    orderVolume: scrub(body.orderVolume, 160),
-    customBranding: scrub(body.customBranding, 200),
-    notes,
-    message:
-      scrub(body.message, 4000) ||
-      [product, notes].filter(Boolean).join(' — ') ||
-      'No additional notes provided.'
+    message: foldExtras(scrubMultiline(body.message, 8000), [
+      company && `Company: ${company}`,
+      country && `Country / Port: ${country}`,
+      product && `Product: ${product}`,
+      orderVolume && `Order volume: ${orderVolume}`,
+      customBranding && `Custom branding: ${customBranding}`,
+      notes && `Notes: ${notes}`
+    ])
   };
 
   if (!payload.name || !payload.email) {
@@ -114,7 +131,7 @@ export function formSubmitBody(payload, env = {}) {
   const cc =
     env.FORMSUBMIT_CC ||
     recipients.filter((addr) => addr.toLowerCase() !== PRIMARY_INBOX).join(', ');
-  const body = {
+  return {
     _subject: inquirySubject(payload),
     _template: 'table',
     _captcha: 'false',
@@ -124,23 +141,9 @@ export function formSubmitBody(payload, env = {}) {
     Name: payload.name,
     email: payload.email,
     phone: payload.phone,
-    country: payload.country,
-    company: payload.company,
-    vehicle: payload.product,
     message: payload.message,
     Source: SITE_ORIGIN
   };
-
-  if (payload.type === 'rfq') {
-    body.Product = payload.product;
-    body['Order volume'] = payload.orderVolume;
-    body['Custom branding'] = payload.customBranding;
-    body.Notes = payload.notes || '(none)';
-  } else {
-    body.Message = payload.message || '(none)';
-  }
-
-  return body;
 }
 
 export function inquiryEmailHtml(payload) {
@@ -152,16 +155,10 @@ export function inquiryEmailHtml(payload) {
 
   const heading =
     payload.type === 'rfq'
-      ? 'New Glovel Matches RFQ / Sample Kit Request'
-      : 'New Glovel Matches Website Inquiry';
+      ? 'New Safety Matches RFQ / Sample Kit Request'
+      : 'New Safety Matches Website Inquiry';
 
-  const extra =
-    payload.type === 'rfq'
-      ? `${row('Product:', `<strong style="color:#b45309">${escapeHtml(payload.product || 'Inquiry')}</strong>`, true)}
-    ${row('Order volume:', escapeHtml(payload.orderVolume || 'N/A'))}
-    ${row('Custom branding:', escapeHtml(payload.customBranding || 'N/A'), true)}
-    ${row('Notes:', escapeHtml(payload.notes || '(none)'))}`
-      : `${row('Message:', escapeHtml(payload.message || '(none)'), true)}`;
+  const messageHtml = escapeHtml(payload.message || '(none)').replace(/\n/g, '<br>');
 
   return `<!doctype html>
 <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;border:1px solid #e0e0e0;border-radius:8px;">
@@ -171,14 +168,23 @@ export function inquiryEmailHtml(payload) {
     ${row('Full Name:', escapeHtml(payload.name))}
     ${row('Email Address:', `<a href="mailto:${escapeHtml(payload.email)}">${escapeHtml(payload.email)}</a>`, true)}
     ${row('Phone / WhatsApp:', escapeHtml(payload.phone || 'N/A'))}
-    ${row('Company:', escapeHtml(payload.company || 'N/A'), true)}
-    ${row('Country / Port:', escapeHtml(payload.country || 'N/A'))}
-    ${extra}
+    ${row('Message:', messageHtml, true)}
   </table>
   <p style="margin-top:20px;font-size:12px;color:#64748b;border-top:1px solid #e2e8f0;padding-top:10px;">
     This message was sent from the Safety Matches website (safetymatches.in).
   </p>
 </div>`;
+}
+
+function apiPayload(payload) {
+  return {
+    site: payload.site,
+    type: payload.type,
+    name: payload.name,
+    email: payload.email,
+    phone: payload.phone,
+    message: payload.message
+  };
 }
 
 export async function tryVpsMailer(payload, env = {}) {
@@ -193,7 +199,7 @@ export async function tryVpsMailer(payload, env = {}) {
         'Content-Type': 'application/json',
         ...(key ? { 'X-Mailer-Key': key } : {})
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(apiPayload(payload)),
       signal: ac.signal
     });
     if (!res.ok) return null;
@@ -247,7 +253,7 @@ async function tryGmailSmtp(payload, env = {}) {
   const html = inquiryEmailHtml(payload);
   const encodedSubject = `=?UTF-8?B?${btoa(String.fromCharCode(...new TextEncoder().encode(subject)))}?=`;
   const raw = [
-    `From: "Glovel Matches Web" <${user}>`,
+    `From: "${FROM_NAME}" <${user}>`,
     `To: ${recipients.join(', ')}`,
     `Reply-To: ${payload.email}`,
     `Subject: ${encodedSubject}`,
@@ -361,13 +367,12 @@ export async function handleInquiryRequest(request, env = {}) {
 
   const payload = parsed.payload;
 
-  // FormSubmit first: Cloudflare blocks outbound SMTP ports, so Gmail often hangs.
-  const formSubmit = await tryFormSubmit(payload, env, request);
-  if (formSubmit) {
+  if (await tryGmailSmtpTimed(payload, env)) {
     return json({ success: true, message: 'Inquiry sent.' });
   }
 
-  if (await tryGmailSmtpTimed(payload, env)) {
+  const formSubmit = await tryFormSubmit(payload, env, request);
+  if (formSubmit) {
     return json({ success: true, message: 'Inquiry sent.' });
   }
 

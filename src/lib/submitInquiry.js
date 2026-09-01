@@ -31,30 +31,38 @@ async function postJson(url, body) {
   return { res, data };
 }
 
+function foldExtras(baseMessage, extras) {
+  const lines = extras.filter((line) => line && !baseMessage.includes(line));
+  const extraBlock = lines.join('\n');
+  return [baseMessage, extraBlock].filter(Boolean).join('\n\n') || 'No additional notes provided.';
+}
+
 function buildPayload({ type, fields }) {
   const isRfq = type === 'rfq';
   const name = scrub(fields.name, 120);
   const email = scrub(fields.email, 160);
+  const phone = scrub(fields.phone, 80);
+  const company = scrub(fields.company, 160);
+  const country = scrub(fields.country, 160);
   const product = scrub(fields.product, 160);
+  const orderVolume = scrub(fields.orderVolume, 160);
+  const customBranding = scrub(fields.customBranding, 200);
   const notes = scrub(fields.notes, 4000);
-  const message =
-    scrub(fields.message, 4000) ||
-    [product, notes].filter(Boolean).join(' — ') ||
-    'No additional notes provided.';
+  const message = foldExtras(scrub(fields.message, 4000), [
+    company && `Company: ${company}`,
+    country && `Country / Port: ${country}`,
+    product && `Product: ${product}`,
+    orderVolume && `Order volume: ${orderVolume}`,
+    customBranding && `Custom branding: ${customBranding}`,
+    notes && `Notes: ${notes}`
+  ]);
 
   return {
     site: 'safetymatches',
     type: isRfq ? 'rfq' : 'contact',
     name,
     email,
-    phone: scrub(fields.phone, 80),
-    company: scrub(fields.company, 160),
-    country: scrub(fields.country, 160),
-    vehicle: product,
-    product,
-    orderVolume: scrub(fields.orderVolume, 160),
-    customBranding: scrub(fields.customBranding, 200),
-    notes,
+    phone,
     message
   };
 }
@@ -76,12 +84,9 @@ async function postFormSubmit(payload) {
         name: payload.name,
         email: payload.email,
         phone: payload.phone,
-        country: payload.country,
-        company: payload.company,
-        vehicle: payload.product,
         message: payload.message,
         _subject: payload.type === 'rfq'
-          ? `[safetymatches.in] RFQ: ${payload.product || 'Inquiry'} — ${payload.name}`
+          ? `[safetymatches.in] RFQ — ${payload.name}`
           : `[safetymatches.in] Inquiry from ${payload.name}`,
         _template: 'table',
         _captcha: 'false',

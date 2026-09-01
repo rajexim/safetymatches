@@ -173,16 +173,17 @@ npm run build
 
 ## Contact / RFQ email
 
-Same method as Bharathi Auto. Contact and RFQ forms first `POST /api/quote` (Cloudflare Pages Function), then fall back to FormSubmit.co from the browser.
+Same method as Bharathi Auto. Contact and RFQ forms first `POST /api/quote` (Cloudflare Pages Function or `worker.js`), then fall back to FormSubmit.co from the browser.
 
-`functions/api/quote.js` tries FormSubmit, then a short Gmail SMTP attempt, then the VPS mailer `https://contact.rajexim.co.in/api/quote`.
+`src/quoteApi.js` tries Gmail SMTP (when `SMTP_PASS` is set), then FormSubmit, then the VPS mailer `https://contact.rajexim.co.in/api/quote` (4s backup).
 
 | Setting | Value |
 |---|---|
+| From | Safety Matches Web |
 | To | `export@glovel.in` (FormSubmit ID `f4a6b8d0f1f10d85b8ce3d1378360fda`) |
 | CC | `sales@glovel.in` |
 | Reply-To | visitor’s email |
 
-On Cloudflare Pages, set `MAIL_TO` and `FORMSUBMIT_ID` as Function secrets (not `VITE_*`). Optional: `SMTP_PASS`, `MAILER_KEY`.
+On Cloudflare, set `MAIL_TO` and `FORMSUBMIT_ID` as Worker/Function secrets (not `VITE_*`). Optional: `SMTP_PASS`, `MAILER_KEY`.
 
-If FormSubmit issues a new ID after re-activation, update `FORMSUBMIT_ID` in Cloudflare secrets, `src/lib/submitInquiry.js`, and the default in `src/inquiryApi.js`.
+If FormSubmit issues a new ID after re-activation, update `FORMSUBMIT_ID` in Cloudflare secrets, `src/lib/submitInquiry.js`, and the default in `src/quoteApi.js`.
