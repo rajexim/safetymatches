@@ -38,6 +38,20 @@ async function readJson(res) {
   }
 }
 
+function smtpPassword(env = {}) {
+  return String(env.SMTP_PASS || '').replace(/\s+/g, '');
+}
+
+function withTimeout(promise, ms, label = 'Timed out') {
+  let timer;
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => {
+      timer = setTimeout(() => reject(new Error(label)), ms);
+    })
+  ]).finally(() => clearTimeout(timer));
+}
+
 function headerValue(request, name, fallback = '') {
   if (!request?.headers) return fallback;
   if (typeof request.headers.get === 'function') {
@@ -186,27 +200,38 @@ export async function tryVpsMailer(payload, env = {}) {
 }
 
 export async function tryFormSubmit(payload, env = {}, request) {
-  const formId = env.FORMSUBMIT_ID || DEFAULT_FORMSUBMIT_ID;
   const origin = headerValue(request, 'Origin', SITE_ORIGIN);
   const referer = headerValue(request, 'Referer', `${SITE_ORIGIN}/`);
-  const res = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(formId)}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      Origin: origin,
-      Referer: referer
-    },
-    body: JSON.stringify(formSubmitBody(payload, env))
-  });
-  if (!res.ok) return null;
-  const data = await readJson(res);
-  return isMailSuccess(data) ? data : null;
+  const targets = [...new Set(
+    [env.FORMSUBMIT_ID || DEFAULT_FORMSUBMIT_ID, PRIMARY_INBOX].filter(Boolean)
+  )];
+  const body = JSON.stringify(formSubmitBody(payload, env));
+
+  for (const target of targets) {
+    try {
+      const res = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(target)}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Origin: origin,
+          Referer: referer
+        },
+        body,
+        signal: AbortSignal.timeout(8000)
+      });
+      const data = await readJson(res);
+      if (res.ok && isMailSuccess(data)) return data;
+    } catch {
+      /* try next target */
+    }
+  }
+  return null;
 }
 
 async function tryGmailSmtp(payload, env = {}) {
   const user = env.SMTP_USER || 'ecommerce@rajexim.co.in';
-  const pass = env.SMTP_PASS || '';
+  const pass = smtpPassword(env);
   if (!pass) return false;
 
   let connect;
@@ -297,6 +322,14 @@ async function tryGmailSmtp(payload, env = {}) {
   }
 }
 
+async function tryGmailSmtpTimed(payload, env = {}) {
+  try {
+    return await withTimeout(tryGmailSmtp(payload, env), 5000, 'SMTP timeout');
+  } catch {
+    return false;
+  }
+}
+
 export async function handleInquiryRequest(request, env = {}) {
   if (request.method === 'OPTIONS') {
     return new Response(null, {
@@ -327,12 +360,13 @@ export async function handleInquiryRequest(request, env = {}) {
 
   const payload = parsed.payload;
 
-  if (await tryGmailSmtp(payload, env)) {
+  // FormSubmit first: Cloudflare blocks outbound SMTP ports, so Gmail often hangs.
+  const formSubmit = await tryFormSubmit(payload, env, request);
+  if (formSubmit) {
     return json({ success: true, message: 'Inquiry sent.' });
   }
 
-  const formSubmit = await tryFormSubmit(payload, env, request);
-  if (formSubmit) {
+  if (await tryGmailSmtpTimed(payload, env)) {
     return json({ success: true, message: 'Inquiry sent.' });
   }
 

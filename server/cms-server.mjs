@@ -25,7 +25,7 @@ const distUploadRoot = path.join(root, 'dist', 'assets', 'images');
 const PORT = Number(process.env.CMS_PORT || 8787);
 const PASSWORD = process.env.CMS_PASSWORD || 'glovel-admin';
 const SMTP_USER = process.env.SMTP_USER || 'ecommerce@rajexim.co.in';
-const SMTP_PASS = process.env.SMTP_PASS || '';
+const SMTP_PASS = String(process.env.SMTP_PASS || '').replace(/\s+/g, '');
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -33,6 +33,9 @@ const transporter = nodemailer.createTransport({
   port: parseInt(process.env.SMTP_PORT || '465', 10),
   secure: true,
   auth: SMTP_PASS ? { user: SMTP_USER, pass: SMTP_PASS } : undefined,
+  connectionTimeout: 5000,
+  greetingTimeout: 5000,
+  socketTimeout: 8000,
   tls: {
     rejectUnauthorized: false
   }
@@ -153,12 +156,12 @@ const server = http.createServer(async (req, res) => {
       const env = process.env;
       const request = requestLike(req);
 
-      if (await tryNodemailerSmtp(payload)) {
+      const formSubmit = await tryFormSubmit(payload, env, request);
+      if (formSubmit) {
         return send(res, 200, { success: true, message: 'Inquiry sent.' });
       }
 
-      const formSubmit = await tryFormSubmit(payload, env, request);
-      if (formSubmit) {
+      if (await tryNodemailerSmtp(payload)) {
         return send(res, 200, { success: true, message: 'Inquiry sent.' });
       }
 

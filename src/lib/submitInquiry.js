@@ -1,6 +1,7 @@
 const FORMSUBMIT_ID = 'f4a6b8d0f1f10d85b8ce3d1378360fda';
+const FORMSUBMIT_INBOX = 'export@glovel.in';
 const FORMSUBMIT_CC = 'sales@glovel.in';
-const FORMSUBMIT_URL = `https://formsubmit.co/ajax/${FORMSUBMIT_ID}`;
+const FORMSUBMIT_TARGETS = [FORMSUBMIT_ID, FORMSUBMIT_INBOX];
 
 function scrub(value, max = 500) {
   return String(value || '')
@@ -13,7 +14,7 @@ function isMailSuccess(res, data) {
   return res.ok && (data?.success === true || data?.success === 'true' || data?.ok === true);
 }
 
-async function postJson(url, body, extraHeaders = {}) {
+async function postJson(url, body, extraHeaders = {}, timeoutMs = 8000) {
   const res = await fetch(url, {
     method: 'POST',
     headers: {
@@ -22,7 +23,7 @@ async function postJson(url, body, extraHeaders = {}) {
       ...extraHeaders
     },
     body: JSON.stringify(body),
-    signal: AbortSignal.timeout(12000)
+    signal: AbortSignal.timeout(timeoutMs)
   });
   let data = {};
   try {
@@ -87,28 +88,45 @@ function formSubmitBody(payload) {
   return body;
 }
 
+function explainFailure(message) {
+  const text = String(message || '');
+  if (/activat/i.test(text)) {
+    return 'FormSubmit sent an activation email to export@glovel.in. Open that inbox, click “Activate Form”, then submit this form again.';
+  }
+  return text || 'Could not send your inquiry. Please try again or use WhatsApp.';
+}
+
 async function postQuote(payload) {
   try {
-    const { res, data } = await postJson('/api/quote', payload);
-    return isMailSuccess(res, data);
-  } catch {
-    return false;
+    const { res, data } = await postJson('/api/quote', payload, {}, 8000);
+    if (isMailSuccess(res, data)) return { ok: true };
+    return { ok: false, message: data.message || data.error };
+  } catch (err) {
+    return { ok: false, message: err.message };
   }
 }
 
 async function postFormSubmit(payload) {
-  try {
-    const { res, data } = await postJson(FORMSUBMIT_URL, formSubmitBody(payload));
-    return isMailSuccess(res, data);
-  } catch {
-    return false;
+  const body = formSubmitBody(payload);
+  let lastMessage = '';
+  for (const target of FORMSUBMIT_TARGETS) {
+    try {
+      const { res, data } = await postJson(
+        `https://formsubmit.co/ajax/${encodeURIComponent(target)}`,
+        body
+      );
+      if (isMailSuccess(res, data)) return { ok: true };
+      lastMessage = data.message || data.error || lastMessage;
+    } catch (err) {
+      lastMessage = err.message || lastMessage;
+    }
   }
+  return { ok: false, message: lastMessage };
 }
 
 export async function submitInquiry({ type, fields }) {
   const payload = buildPayload({ type, fields });
-  const sent = (await postQuote(payload)) || (await postFormSubmit(payload));
-  if (!sent) {
-    throw new Error('Could not send your inquiry. Please try again or use WhatsApp.');
-  }
+  const [form, quote] = await Promise.all([postFormSubmit(payload), postQuote(payload)]);
+  if (form.ok || quote.ok) return;
+  throw new Error(explainFailure(form.message || quote.message));
 }
