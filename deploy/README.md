@@ -197,21 +197,32 @@ npm run build         # bundle the updated manifest
 | Image upload fails with 413 | `client_max_body_size` too low — uploads are base64 and inflate ~33% |
 | `/admin` saves return 401 | `CMS_PASSWORD` in the systemd unit doesn't match what you typed |
 | Images 404 | You ran `npm run images -- --prune` but not `npm run build`, so `dist/` is stale |
-| Contact / RFQ mail not arriving | Confirm FormSubmit is still activated for `export@glovel.in`, and that `sales@glovel.in` is listed as CC |
+| Contact / RFQ mail not arriving | Set `SMTP_PASS` on the CMS service or Cloudflare Function secrets. Confirm FormSubmit is still activated for `export@glovel.in`, and that `sales@glovel.in` is listed as CC. If CMS is not running, the browser still tries FormSubmit directly. |
 
 ---
 
-## Contact / RFQ email (FormSubmit.co)
+## Contact / RFQ email
 
-Contact and RFQ forms POST from the browser to FormSubmit.co using the activated form ID (not a raw inbox address). The CMS service is not involved.
+Contact and RFQ forms first `POST /api/quote` (same origin), then fall back to FormSubmit.co from the browser — the same chain as Bharathi Auto.
+
+`/api/quote` tries, in order:
+
+1. Gmail SMTP (`SMTP_USER` / `SMTP_PASS`, port 465)
+2. FormSubmit.co (activated form ID, not a raw inbox address)
+3. VPS mailer `https://contact.rajexim.co.in/api/quote`
+
+On LEMP, nginx proxies `/api/quote` to the CMS Node process on `:8787`. On Cloudflare Pages, `functions/api/quote.js` handles the same route. If neither backend is available, FormSubmit from the browser still sends the inquiry.
 
 | Setting | Value |
 |---|---|
 | To | `export@glovel.in` (FormSubmit ID `f4a6b8d0f1f10d85b8ce3d1378360fda`) |
 | CC | `sales@glovel.in` |
 | Reply-To | visitor’s email |
+| SMTP | `ecommerce@rajexim.co.in` via `SMTP_PASS` (systemd env or Cloudflare Function secret) |
 
-If FormSubmit is re-activated and issues a new ID, update `FORMSUBMIT_ID` in `src/lib/submitInquiry.js`.
+Copy `.env.example` to `.env` for local `npm run cms`. On Cloudflare Pages, set `SMTP_USER`, `SMTP_PASS`, `MAIL_TO`, and `FORMSUBMIT_ID` as Function secrets (not `VITE_*`).
+
+If FormSubmit is re-activated and issues a new ID, update `FORMSUBMIT_ID` in `.env`, the systemd unit, Cloudflare secrets, `src/lib/submitInquiry.js`, and the default in `src/inquiryApi.js`.
 
 **CMS admin password:** whatever is set as `CMS_PASSWORD` in the same unit (not the default
 `glovel-admin` hint unless that is still the value).

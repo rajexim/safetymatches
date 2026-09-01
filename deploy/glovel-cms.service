@@ -24,6 +24,17 @@ Environment=CMS_PASSWORD=replace-with-a-long-random-password
 Environment=CMS_PORT=8787
 Environment=NODE_ENV=production
 
+# Quote / RFQ mailer (POST /api/quote). SMTP first, then FormSubmit, then VPS.
+# Leave SMTP_PASS empty to skip Gmail and use FormSubmit/VPS fallbacks.
+Environment=SMTP_HOST=smtp.gmail.com
+Environment=SMTP_PORT=465
+Environment=SMTP_USER=ecommerce@rajexim.co.in
+Environment=SMTP_PASS=
+Environment=MAIL_TO=export@glovel.in, sales@glovel.in
+Environment=FORMSUBMIT_ID=f4a6b8d0f1f10d85b8ce3d1378360fda
+Environment=MAILER_URL=https://contact.rajexim.co.in/api/quote
+Environment=MAILER_KEY=
+
 ExecStart=/usr/bin/node server/cms-server.mjs
 Restart=always
 RestartSec=5

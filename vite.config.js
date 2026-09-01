@@ -42,6 +42,10 @@ export default defineConfig({
       '/api/cms': {
         target: 'http://localhost:8787',
         changeOrigin: true
+      },
+      '/api/quote': {
+        target: 'http://localhost:8787',
+        changeOrigin: true
       }
     }
   }

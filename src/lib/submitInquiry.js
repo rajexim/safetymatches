@@ -9,54 +9,106 @@ function scrub(value, max = 500) {
     .slice(0, max);
 }
 
-function isFormSubmitSuccess(data) {
-  return data?.success === true || data?.success === 'true';
+function isMailSuccess(res, data) {
+  return res.ok && (data?.success === true || data?.success === 'true' || data?.ok === true);
 }
 
-export async function submitInquiry({ type, fields }) {
+async function postJson(url, body, extraHeaders = {}) {
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      ...extraHeaders
+    },
+    body: JSON.stringify(body),
+    signal: AbortSignal.timeout(12000)
+  });
+  let data = {};
+  try {
+    data = await res.json();
+  } catch {
+    data = {};
+  }
+  return { res, data };
+}
+
+function buildPayload({ type, fields }) {
   const isRfq = type === 'rfq';
   const name = scrub(fields.name, 120);
   const email = scrub(fields.email, 160);
   const product = scrub(fields.product, 160);
-  const subject = isRfq
-    ? `[safetymatches.in] RFQ: ${product || 'Inquiry'} — ${name}`
-    : `[safetymatches.in] Inquiry from ${name}`;
 
-  const payload = {
+  return {
+    type: isRfq ? 'rfq' : 'contact',
+    name,
+    email,
+    phone: scrub(fields.phone, 80),
+    company: scrub(fields.company, 160),
+    country: scrub(fields.country, 160),
+    product,
+    orderVolume: scrub(fields.orderVolume, 160),
+    customBranding: scrub(fields.customBranding, 200),
+    notes: scrub(fields.notes, 4000),
+    message: scrub(fields.message, 4000)
+  };
+}
+
+function formSubmitBody(payload) {
+  const isRfq = payload.type === 'rfq';
+  const subject = isRfq
+    ? `[safetymatches.in] RFQ: ${payload.product || 'Inquiry'} — ${payload.name}`
+    : `[safetymatches.in] Inquiry from ${payload.name}`;
+
+  const body = {
     _subject: subject,
     _cc: FORMSUBMIT_CC,
-    _replyto: email,
+    _replyto: payload.email,
     _template: 'table',
     _captcha: 'false',
     Type: isRfq ? 'RFQ / Sample Kit' : 'Contact form',
-    Name: name,
-    email,
-    'Phone / WhatsApp': scrub(fields.phone, 80),
-    Company: scrub(fields.company, 160),
-    'Country / Port': scrub(fields.country, 160),
+    Name: payload.name,
+    email: payload.email,
+    'Phone / WhatsApp': payload.phone,
+    Company: payload.company,
+    'Country / Port': payload.country,
     Source: 'https://www.safetymatches.in'
   };
 
   if (isRfq) {
-    payload.Product = product;
-    payload['Order volume'] = scrub(fields.orderVolume, 160);
-    payload['Custom branding'] = scrub(fields.customBranding, 200);
-    payload.Notes = scrub(fields.notes, 4000) || '(none)';
+    body.Product = payload.product;
+    body['Order volume'] = payload.orderVolume;
+    body['Custom branding'] = payload.customBranding;
+    body.Notes = payload.notes || '(none)';
   } else {
-    payload.Message = scrub(fields.message, 4000) || '(none)';
+    body.Message = payload.message || '(none)';
   }
 
-  const res = await fetch(FORMSUBMIT_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json'
-    },
-    body: JSON.stringify(payload)
-  });
+  return body;
+}
 
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok || !isFormSubmitSuccess(data)) {
-    throw new Error(data.message || data.error || 'Could not send your inquiry.');
+async function postQuote(payload) {
+  try {
+    const { res, data } = await postJson('/api/quote', payload);
+    return isMailSuccess(res, data);
+  } catch {
+    return false;
+  }
+}
+
+async function postFormSubmit(payload) {
+  try {
+    const { res, data } = await postJson(FORMSUBMIT_URL, formSubmitBody(payload));
+    return isMailSuccess(res, data);
+  } catch {
+    return false;
+  }
+}
+
+export async function submitInquiry({ type, fields }) {
+  const payload = buildPayload({ type, fields });
+  const sent = (await postQuote(payload)) || (await postFormSubmit(payload));
+  if (!sent) {
+    throw new Error('Could not send your inquiry. Please try again or use WhatsApp.');
   }
 }

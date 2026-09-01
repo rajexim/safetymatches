@@ -2,9 +2,21 @@ import http from 'http';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+import nodemailer from 'nodemailer';
+import {
+  inquiryEmailHtml,
+  inquiryRecipients,
+  inquirySubject,
+  parseInquiryBody,
+  tryFormSubmit,
+  tryVpsMailer
+} from '../src/inquiryApi.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
+dotenv.config({ path: path.join(root, '.env') });
+
 const contentFile = path.join(root, 'content', 'site-content.json');
 const publicContentFile = path.join(root, 'public', 'content', 'site-content.json');
 const uploadRoot = path.join(root, 'public', 'assets', 'images');
@@ -12,6 +24,46 @@ const distUploadRoot = path.join(root, 'dist', 'assets', 'images');
 
 const PORT = Number(process.env.CMS_PORT || 8787);
 const PASSWORD = process.env.CMS_PASSWORD || 'glovel-admin';
+const SMTP_USER = process.env.SMTP_USER || 'ecommerce@rajexim.co.in';
+const SMTP_PASS = process.env.SMTP_PASS || '';
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  host: process.env.SMTP_HOST || 'smtp.gmail.com',
+  port: parseInt(process.env.SMTP_PORT || '465', 10),
+  secure: true,
+  auth: SMTP_PASS ? { user: SMTP_USER, pass: SMTP_PASS } : undefined,
+  tls: {
+    rejectUnauthorized: false
+  }
+});
+
+function requestLike(req) {
+  return {
+    headers: {
+      get(name) {
+        return req.headers[String(name).toLowerCase()] || null;
+      }
+    }
+  };
+}
+
+async function tryNodemailerSmtp(payload) {
+  if (!SMTP_PASS) return false;
+  try {
+    await transporter.sendMail({
+      from: `"Glovel Matches Web" <${SMTP_USER}>`,
+      to: inquiryRecipients(process.env).join(', '),
+      replyTo: payload.email,
+      subject: inquirySubject(payload),
+      html: inquiryEmailHtml(payload)
+    });
+    return true;
+  } catch (err) {
+    console.error('Nodemailer Gmail SMTP error:', err.message);
+    return false;
+  }
+}
 
 function send(res, status, data, type = 'application/json') {
   const body = typeof data === 'string' ? data : JSON.stringify(data);
@@ -83,6 +135,44 @@ const server = http.createServer(async (req, res) => {
   }
 
   try {
+    if (req.method === 'POST' && url.pathname === '/api/quote') {
+      let body;
+      try {
+        body = JSON.parse((await readBody(req, 64 * 1024)).toString('utf8'));
+      } catch (err) {
+        if (err.statusCode === 413) return send(res, 413, { success: false, message: 'Payload too large.' });
+        return send(res, 400, { success: false, message: 'Invalid JSON body.' });
+      }
+
+      const parsed = parseInquiryBody(body);
+      if (!parsed.ok) {
+        return send(res, 400, { success: false, message: parsed.message });
+      }
+
+      const payload = parsed.payload;
+      const env = process.env;
+      const request = requestLike(req);
+
+      if (await tryNodemailerSmtp(payload)) {
+        return send(res, 200, { success: true, message: 'Inquiry sent.' });
+      }
+
+      const formSubmit = await tryFormSubmit(payload, env, request);
+      if (formSubmit) {
+        return send(res, 200, { success: true, message: 'Inquiry sent.' });
+      }
+
+      const vps = await tryVpsMailer(payload, env);
+      if (vps) {
+        return send(res, 200, { success: true, message: vps.message || 'Inquiry sent.' });
+      }
+
+      return send(res, 502, {
+        success: false,
+        message: 'Could not send your inquiry. Please try again or use WhatsApp.'
+      });
+    }
+
     if (req.method === 'GET' && url.pathname === '/api/cms/health') {
       return send(res, 200, {
         ok: true,
