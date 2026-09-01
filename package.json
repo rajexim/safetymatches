@@ -5,19 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "cms": "node server/cms-server.mjs",
-    "dev:all": "npx --yes concurrently -k \"npm run cms\" \"npm run dev\"",
     "build": "vite build && node scripts/generate-seo.mjs",
     "preview": "vite preview",
     "seo": "node scripts/generate-seo.mjs",
     "seo:alt": "node scripts/apply-image-alt.mjs",
-    "seed:cms": "node scripts/seed-cms-content.mjs",
     "images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
-    "dotenv": "^17.4.2",
     "lucide-react": "^0.475.0",
-    "nodemailer": "^9.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.11.0"

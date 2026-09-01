@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Router, useRouter } from './router/Router';
 import { ContentProvider } from './content/ContentContext';
 import { LocaleProvider } from './i18n/LocaleContext';
@@ -25,7 +25,6 @@ import BarbequeMatchesPage from './pages/BarbequeMatchesPage';
 import KitchenMatchesPage from './pages/KitchenMatchesPage';
 import BlogPage from './pages/BlogPage';
 import BlogPostPage from './pages/BlogPostPage';
-import AdminPage from './pages/AdminPage';
 import { getBlogPostByPath } from './config/blogPosts';
 
 function PageContent({ onOpenRfq }) {
@@ -85,8 +84,6 @@ function PageContent({ onOpenRfq }) {
 }
 
 function AppShell() {
-  const { path, routePath } = useRouter();
-  const cleanPath = routePath.length > 1 && routePath.endsWith('/') ? routePath.slice(0, -1) : routePath;
   const [rfqOpen, setRfqOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState('');
 
@@ -94,20 +91,6 @@ function AppShell() {
     setSelectedProduct(productName || 'Standard Wooden Matches');
     setRfqOpen(true);
   };
-
-  useEffect(() => {
-    if (path !== '/admin') return undefined;
-    const robots = document.createElement('meta');
-    robots.name = 'robots';
-    robots.content = 'noindex, nofollow';
-    document.head.appendChild(robots);
-    document.title = 'Content Admin | Glovel Matches LLP';
-    return () => document.head.removeChild(robots);
-  }, [path]);
-
-  if (path === '/admin') {
-    return <AdminPage />;
-  }
 
   return (
     <LocaleProvider>

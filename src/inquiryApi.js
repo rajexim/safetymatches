@@ -75,6 +75,8 @@ export function inquiryRecipients(env = {}) {
 
 export function parseInquiryBody(body = {}) {
   const isRfq = String(body.type || '').toLowerCase() === 'rfq';
+  const product = scrub(body.product || body.vehicle, 160);
+  const notes = scrub(body.notes, 4000);
   const payload = {
     site: 'safetymatches',
     type: isRfq ? 'rfq' : 'contact',
@@ -83,11 +85,14 @@ export function parseInquiryBody(body = {}) {
     phone: scrub(body.phone, 80),
     company: scrub(body.company, 160),
     country: scrub(body.country, 160),
-    product: scrub(body.product, 160),
+    product,
     orderVolume: scrub(body.orderVolume, 160),
     customBranding: scrub(body.customBranding, 200),
-    notes: scrub(body.notes, 4000),
-    message: scrub(body.message, 4000)
+    notes,
+    message:
+      scrub(body.message, 4000) ||
+      [product, notes].filter(Boolean).join(' — ') ||
+      'No additional notes provided.'
   };
 
   if (!payload.name || !payload.email) {
@@ -118,9 +123,11 @@ export function formSubmitBody(payload, env = {}) {
     Type: payload.type === 'rfq' ? 'RFQ / Sample Kit' : 'Contact form',
     Name: payload.name,
     email: payload.email,
-    'Phone / WhatsApp': payload.phone,
-    Company: payload.company,
-    'Country / Port': payload.country,
+    phone: payload.phone,
+    country: payload.country,
+    company: payload.company,
+    vehicle: payload.product,
+    message: payload.message,
     Source: SITE_ORIGIN
   };
 
@@ -200,33 +207,27 @@ export async function tryVpsMailer(payload, env = {}) {
 }
 
 export async function tryFormSubmit(payload, env = {}, request) {
-  const origin = headerValue(request, 'Origin', SITE_ORIGIN);
-  const referer = headerValue(request, 'Referer', `${SITE_ORIGIN}/`);
-  const targets = [...new Set(
-    [env.FORMSUBMIT_ID || DEFAULT_FORMSUBMIT_ID, PRIMARY_INBOX].filter(Boolean)
-  )];
-  const body = JSON.stringify(formSubmitBody(payload, env));
-
-  for (const target of targets) {
-    try {
-      const res = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(target)}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Origin: origin,
-          Referer: referer
-        },
-        body,
-        signal: AbortSignal.timeout(8000)
-      });
-      const data = await readJson(res);
-      if (res.ok && isMailSuccess(data)) return data;
-    } catch {
-      /* try next target */
-    }
+  try {
+    const formId = env.FORMSUBMIT_ID || DEFAULT_FORMSUBMIT_ID;
+    const origin = headerValue(request, 'Origin', SITE_ORIGIN);
+    const referer = headerValue(request, 'Referer', `${SITE_ORIGIN}/`);
+    const res = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(formId)}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Origin: origin,
+        Referer: referer
+      },
+      body: JSON.stringify(formSubmitBody(payload, env)),
+      signal: AbortSignal.timeout(8000)
+    });
+    if (!res.ok) return null;
+    const data = await readJson(res);
+    return isMailSuccess(data) ? data : null;
+  } catch {
+    return null;
   }
-  return null;
 }
 
 async function tryGmailSmtp(payload, env = {}) {

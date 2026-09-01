@@ -36,17 +36,5 @@ function servePrerenderedRoutes() {
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss(), servePrerenderedRoutes()],
-  server: {
-    proxy: {
-      '/api/cms': {
-        target: 'http://localhost:8787',
-        changeOrigin: true
-      },
-      '/api/quote': {
-        target: 'http://localhost:8787',
-        changeOrigin: true
-      }
-    }
-  }
+  plugins: [react(), tailwindcss(), servePrerenderedRoutes()]
 })
